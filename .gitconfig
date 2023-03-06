@@ -1,0 +1,44 @@
+[core]
+    ignorecase = false
+    #change to the current global .gitignore file
+    excludesfile = /home/mydn8y/.gitignore
+
+[color]
+    ui = true
+
+[push]
+    default = current
+
+;[commit]
+    ;gpgsign = true
+
+[rebase]
+    autosquash = true
+
+[log]
+    abbrevCommit = true
+
+[alias]
+    pop = stash pop
+    pp = "!git pull origin $(git branch --show-current) --rebase"
+    pmm = "!git pull origin main --rebase"
+    pm = "!git pull origin master --rebase"
+    ap = add -p
+    s = status -sb
+    d = diff -w
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+
+[user]
+    email = YOUR_EMAIL
+    name = YOUR_NAME
+
+[gpg]
+    program = gpg
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[rerere]
+	enabled = true
