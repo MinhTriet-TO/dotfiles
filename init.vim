@@ -8,7 +8,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'hashivim/vim-terraform'
 Plug 'roryokane/detectindent'
 Plug 'mhartington/oceanic-next'
-
+Plug 'davidhalter/jedi-vim'
 " File system
 Plug 'scrooloose/nerdtree'
 
