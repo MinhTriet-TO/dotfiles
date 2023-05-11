@@ -77,10 +77,10 @@ ln -s $PWD/.zshrc $HOME/.zshrc
 - With the help of a good old symlink:
 
 ```bash
-ln -s $PWD/init.vim $HOME/.config/nvim/
+ln -s $PWD/nvim $HOME/.config/nvim/
 ```
 
 ## Credits
 
-- My mentor, terminal guru @bbonvarlet
+- My mentor, terminal guru @komalis
 - Spring 2023, written and adapted by @ttominh
