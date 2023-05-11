@@ -33,7 +33,7 @@ dashboard.section.buttons.val = {
 }
 
 local function footer()
-	return "Yerterday is history. Tomorrow is mistery. Today is a gift. That's why it's called present"
+	return "Yerterday is history, tomorrow is mistery, today is a present "
 end
 
 dashboard.section.footer.val = footer()
