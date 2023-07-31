@@ -39,7 +39,7 @@ return packer.startup(function(use)
 	use("windwp/nvim-autopairs")
 
 	--autotag for html
-	use("windwp/nvim-ts-autotag")
+	-- use("windwp/nvim-ts-autotag")
 
 	-- tmux & split window navigation
 	-- Ctrl hjkl for moving between vim split
@@ -118,6 +118,10 @@ return packer.startup(function(use)
 
 	-- alpha dashboard
 	use({ "goolord/alpha-nvim" })
+
+	-- pre-commit hook
+	use("ttibsi/pre-commit.nvim")
+
 	-- Automatically set up the configuration after cloning packer.nvim
 	if packer_bootstrap then
 		require("packer").sync()

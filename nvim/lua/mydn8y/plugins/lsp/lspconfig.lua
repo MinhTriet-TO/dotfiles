@@ -64,18 +64,6 @@ local config = {
 }
 
 vim.diagnostic.config(config)
--- configure python server
-lspconfig["pyright"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-	settings = {
-		python = {
-			analysis = {
-				typeChekingMode = "off",
-			},
-		},
-	},
-})
 
 -- configure bash server
 lspconfig["bashls"].setup({
@@ -85,12 +73,6 @@ lspconfig["bashls"].setup({
 
 -- configure bash server
 lspconfig["dockerls"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- configure json language server
-lspconfig["jsonls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })

@@ -41,7 +41,7 @@ keymap.set("n", "<leader>nh", ":nohl<CR>")
 -- nvim-tree
 keymap.set("n", "²", ":NvimTreeToggle<CR>")
 
--- list all buffers and quickly jump to one by number 
+-- list all buffers and quickly jump to one by number
 keymap.set("n", "<M-b>", ":buffers<CR>:buffer<space>")
 
 -- find and replace (ctrl + h)
@@ -54,6 +54,9 @@ keymap.set("n", "<leader>fc", ":Telescope grep_string<CR>") -- find string under
 keymap.set("n", "<leader>fb", ":Telescope buffers<CR>") -- list open buffers in current neovim instance
 keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>") -- list available help tags
 
+-- paste at the next line
+keymap.set("n", "p", ":pu<CR>")
+
 -- 2. Insert
 -- Press jk instead of escape to go back to normal mode
 keymap.set("i", "lk", "<ESC>")
@@ -63,9 +66,10 @@ keymap.set("i", "lk", "<ESC>")
 keymap.set("v", "lk", "<ESC>")
 -- map toggle code commenter with ", " as usual
 keymap.set("v", "<leader><space>", ":CommentToggle<CR>")
--- do not delete into the register, aka true delete 
+-- do not delete into the register, aka true delete
 keymap.set("v", "d", '"_d')
 -- Stay in indent mode
-keymap.set("v", "<", "<gv", opts)
+keymap.set("v", "<", "<gv")
+keymap.set("v", ">", ">gv")
 
 -- 4.Term
