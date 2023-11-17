@@ -11,7 +11,7 @@ vim.opt.autoindent = true -- automatically indentation
 vim.opt.showtabline = 2 -- always show tabline
 
 -- line wrapping
-vim.opt.wrap = false -- display lines as one long line
+vim.opt.wrap = true -- display lines as one long line
 
 -- search settings
 vim.opt.ignorecase = true -- ignore case when searching
@@ -35,3 +35,6 @@ vim.opt.showmode = false -- with lualine installed, remove the default mode indi
 vim.opt.hidden = true
 
 vim.opt.fillchars:append({ eob = " " })
+
+-- because accidentally touching the pad while typing is very painful
+vim.opt.mouse = ""

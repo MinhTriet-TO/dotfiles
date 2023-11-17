@@ -45,12 +45,6 @@ return packer.startup(function(use)
 	-- Ctrl hjkl for moving between vim split
 	use("christoomey/vim-tmux-navigator")
 
-	-- surrounding word with all kind of parentheses
-	-- <ysw>'"({ : wrap the word inside all kinds of brackets
-	-- <cs><before><after> to change bracket
-	-- <ds></bracket> to remove the bracket from the world
-	use("tpope/vim-surround")
-
 	-- goodbye to NerdTree and say hello to nvim-tree
 	use("nvim-tree/nvim-tree.lua")
 
@@ -78,40 +72,16 @@ return packer.startup(function(use)
 			ts_update()
 		end,
 	})
-
 	-- autocompletion
 	use("hrsh7th/nvim-cmp") -- completion plugin
-	use("hrsh7th/cmp-buffer") -- source for text in buffer
-	use("hrsh7th/cmp-path") -- source for file system paths
+	use("hrsh7th/cmp-buffer") -- buffer completions
+    use("hrsh7th/cmp-path") -- path completions
+    use("hrsh7th/cmp-cmdline") -- cmdline completions
+	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 
 	-- snippets
 	use("L3MON4D3/LuaSnip") -- snippet engine
-	use("saadparwaiz1/cmp_luasnip") -- for autocompletion
 	use("rafamadriz/friendly-snippets") -- useful snippets
-
-	--lsp
-	-- managing & installing lsp servers, linters & formatters
-	use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
-	use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
-
-	-- enhance lsp experience
-	use({
-		"glepnir/lspsaga.nvim",
-		branch = "main",
-		requires = {
-			{ "nvim-tree/nvim-web-devicons" },
-			{ "nvim-treesitter/nvim-treesitter" },
-		},
-	})
-
-	-- configuring lsp servers
-	use("neovim/nvim-lspconfig") -- easily configure language servers
-	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
-	use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
-
-	-- formatting & linting
-	use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
-	use("jayp0521/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
 
 	-- git integration
 	use("lewis6991/gitsigns.nvim") -- show line modifications on left hand side
@@ -122,6 +92,13 @@ return packer.startup(function(use)
 	-- pre-commit hook
 	use("ttibsi/pre-commit.nvim")
 
+	--lsp
+	-- managing & installing lsp servers, linters & formatters
+	use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
+	use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
+	use("neovim/nvim-lspconfig") -- easily configure language servers
+	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
+    
 	-- Automatically set up the configuration after cloning packer.nvim
 	if packer_bootstrap then
 		require("packer").sync()
