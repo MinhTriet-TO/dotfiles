@@ -88,6 +88,7 @@ return packer.startup(function(use)
 
 	-- alpha dashboard
 	use({ "goolord/alpha-nvim" })
+    use({"BlakeJC94//alpha-nvim-fortune"})
 
 	-- pre-commit hook
 	use("ttibsi/pre-commit.nvim")

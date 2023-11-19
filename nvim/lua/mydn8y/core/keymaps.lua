@@ -17,6 +17,8 @@ local keymap = vim.keymap
 -- 1. Normal
 --- delete without copying content to the register
 keymap.set("n", "x", '"_x')
+keymap.set("n", "dw", '"_dw')
+keymap.set("n", "dd", '"_dd')
 
 -- split panels within nvim
 keymap.set("n", "<leader>sh", "<C-w>v") -- vertically
