@@ -19,8 +19,13 @@ local keymap = vim.keymap -- for conciseness
 local on_attach = function(client, bufnr)
 	-- keybind options
 	local opts = { noremap = true, silent = true, buffer = bufnr }
+        -- definition is mostly preferred
         keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        -- check the definition of a keyword
         keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        -- check all references of a keyword
+        -- keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        keymap.set("n", "gr", ":Telescope lsp_references<CR>", opts)
 end
 
 -- disable the general diagnostics
@@ -28,6 +33,12 @@ vim.diagnostic.disable()
 
 -- configure pyright server
 lspconfig["pyright"].setup({
+    capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+-- configure pyright server
+lspconfig["tsserver"].setup({
     capabilities = capabilities,
 	on_attach = on_attach,
 })

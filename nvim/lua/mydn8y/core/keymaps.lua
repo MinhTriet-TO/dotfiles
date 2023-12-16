@@ -19,6 +19,7 @@ local keymap = vim.keymap
 keymap.set("n", "x", '"_x')
 keymap.set("n", "dw", '"_dw')
 keymap.set("n", "dd", '"_dd')
+keymap.set("n", "d$", '"_d$')
 
 -- split panels within nvim
 keymap.set("n", "<leader>sh", "<C-w>v") -- vertically
@@ -36,11 +37,17 @@ keymap.set("n", "<C-n>", ":enew<CR>")
 keymap.set("n", "<C-w>", ":Bdelete<CR>")
 keymap.set("n", "<C-M-w>", ":Bdelete!<CR>")
 
+-- quickfix buffer navigation
+keymap.set("n", "<leader>gc", ":ccl<CR>" ) --close it
+keymap.set("n", "<leader>gq", ":cope<CR>" ) --reopen it
+keymap.set("n", "<leader>gn", ":cn<CR>" ) --next reference
+keymap.set("n", "<leader>gp", ":cp<CR>" ) --previous reference
+
 -- remove search highlighting
 keymap.set("n", "<leader>nh", ":nohl<CR>")
 
 -- nvim-tree
-keymap.set("n", "²", ":NvimTreeToggle<CR>")
+keymap.set("n", "`", ":NvimTreeToggle<CR>")
 
 -- find and replace (ctrl + h)
 keymap.set("n", "<M-r>", ":%s/")
