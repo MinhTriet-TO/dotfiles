@@ -84,11 +84,6 @@ _G.packer_plugins = {
     path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/alpha-nvim",
     url = "https://github.com/goolord/alpha-nvim"
   },
-  ["alpha-nvim-fortune"] = {
-    loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/alpha-nvim-fortune",
-    url = "https://github.com/BlakeJC94//alpha-nvim-fortune"
-  },
   ["bufferline.nvim"] = {
     loaded = true,
     path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/bufferline.nvim",

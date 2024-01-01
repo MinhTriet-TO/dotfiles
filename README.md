@@ -64,8 +64,25 @@ ln -s $PWD/.zshrc $HOME/.zshrc
 ## 3. neovim
 
 - Better than vim, again, for all the colors stuff, and more modern.
-- [Here](https://github.com/neovim/neovim/wiki/Installing-Neovim#ubuntu) for installation
-- Or [here](https://github.com/neovim/neovim/wiki/Installing-Neovim#appimage-universal-linux-package) for 'universal' installation
+### installation instruction
+- Find the latest version of neovim [here](https://github.com/neovim/neovim/releases)
+- Download the **nvim.appimage**
+- Give it the right right, extract and try to run it directly:
+```bash
+sudo chmod u+x nvim.appimage 
+./nvim.appimage --appimage-extract
+./squashfs-root/usr/bin/nvim
+```
+- You should see nvim pop up after the last command above. Hit :version to confirm the version.
+- Make a symlink so that you could run it anywhere
+```bash
+sudo ln -s $PWD/squashfs-root/usr/bin/nvim /usr/bin/nvim
+```
+
+### remark
+
+- You should put the **nvim.appimage** in a nice, easy-to-reach folder, as for the future updates, this file has to be replaced manually (hence the installation process need to be redone)
+- Make sure you don't have a symlink of neovim already created in ~/.local/bin/
 
 ### nvim config refactory with lua
 

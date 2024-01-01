@@ -88,7 +88,6 @@ return packer.startup(function(use)
 
 	-- alpha dashboard
 	use({ "goolord/alpha-nvim" })
-    use({"BlakeJC94//alpha-nvim-fortune"})
 
 	-- pre-commit hook
 	use("ttibsi/pre-commit.nvim")
@@ -99,6 +98,9 @@ return packer.startup(function(use)
 	use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
 	use("neovim/nvim-lspconfig") -- easily configure language servers
 	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
+
+    --dbt integration
+    -- use("PedramNavid/dbtpal")
     
 	-- Automatically set up the configuration after cloning packer.nvim
 	if packer_bootstrap then

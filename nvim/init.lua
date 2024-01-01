@@ -4,6 +4,9 @@ require("mydn8y.core.keymaps")
 require("mydn8y.core.colorscheme")
 require("mydn8y.plugins-setup")
 -- custom config files
+require("mydn8y.plugins.web-devicons")
+-- still testing
+-- require("mydn8y.plugins.dbtpal")
 require("mydn8y.plugins.autopairs")
 require("mydn8y.plugins.comment")
 require("mydn8y.plugins.nvim-tree")
