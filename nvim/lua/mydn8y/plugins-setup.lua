@@ -33,7 +33,7 @@ return packer.startup(function(use)
 
 	use("mhartington/oceanic-next") -- best colorscheme
 
-	use("terrortylor/nvim-comment") -- commenter
+    use("numToStr/Comment.nvim")
 
 	-- autoclosing
 	use("windwp/nvim-autopairs")
@@ -44,6 +44,9 @@ return packer.startup(function(use)
 	-- tmux & split window navigation
 	-- Ctrl hjkl for moving between vim split
 	use("christoomey/vim-tmux-navigator")
+
+    -- maximize nvim split
+    use("szw/vim-maximizer")
 
 	-- goodbye to NerdTree and say hello to nvim-tree
 	use("nvim-tree/nvim-tree.lua")

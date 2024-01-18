@@ -25,10 +25,12 @@ keymap.set("n", "d$", '"_d$')
 keymap.set("n", "<leader>sh", "<C-w>v") -- vertically
 keymap.set("n", "<leader>sv", "<C-w>s") -- horizontally
 keymap.set("n", "<leader>se", "<C-w>=") -- resize equally panels
-keymap.set("n", "<leader>sx", ":close<CR>") -- quit the current panel
+keymap.set("n", "<leader>sx", ":close<CR>") -- close the current panel
+keymap.set("n", "<leader>sz", ":MaximizerToggle<CR>") -- quit the current panel
 
 -- map toggle code commenter with ", " as usual
-keymap.set("n", "<leader><space>", ":CommentToggle<CR>")
+-- keymap.set("n", "<leader><space>", ":CommentToggle<CR>")
+-- keymap.set("n", "<leader><space>", "gcc")
 
 -- buffer navigation
 keymap.set("n", "<M-h>", ":bprevious<CR>")
@@ -80,12 +82,14 @@ keymap.set("i", "<M-n>", "<ESC>A")
 -- lk stuff
 keymap.set("v", "lk", "<ESC>")
 -- map toggle code commenter with ", " as usual
-keymap.set("v", "<leader><space>", ":CommentToggle<CR>")
+-- keymap.set("v", "<leader><space>", ":CommentToggle<CR>")
 -- do not delete into the register, aka true delete
 keymap.set("v", "d", '"_d')
 -- Stay in indent mode
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
+-- Nvim-comment related
+-- keymap.set("v", "<leader><space>", "gc")
 
 -- Permanently block arrow key to force learning hjkl
 -- keymap.set("", "<up>", "<nop>", { noremap = true })

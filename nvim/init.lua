@@ -8,7 +8,7 @@ require("mydn8y.plugins.web-devicons")
 -- still testing
 -- require("mydn8y.plugins.dbtpal")
 require("mydn8y.plugins.autopairs")
-require("mydn8y.plugins.comment")
+require("mydn8y.plugins.nvim-comment")
 require("mydn8y.plugins.nvim-tree")
 require("mydn8y.plugins.lualine")
 require("mydn8y.plugins.bufferline")

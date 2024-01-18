@@ -38,3 +38,6 @@ vim.opt.fillchars:append({ eob = " " })
 
 -- because accidentally touching the pad while typing is very painful
 vim.opt.mouse = ""
+
+vim.opt.backup = false
+vim.opt.writebackup = false
