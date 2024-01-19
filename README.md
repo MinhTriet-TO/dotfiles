@@ -1,6 +1,46 @@
 # dotfiles
 
-All dotfiles configurations for Linux initial setup
+My personal dotfiles configurations.
+For a fresh setup on a completely new machine, follow from step 0. Otherwise, just skip it.
+
+## 0. prerequisites
+
+- You need these tools to be set up in order to follow the rest configuration:
+  - github access (to clone this repository for example via ssh)
+  - neovim (to edit any other files)
+
+### 0.1 github access
+```bash
+# check if you already have a ssh key, if not create one
+ls -al ~/.ssh
+ssh-keygen -t ed25519 -C "your email address"
+# start the ssh agent and add the key to it
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+Then add the public key (located generally at *~/.ssh/id_ed25519.pub*) to the github interface.
+
+### 0.2 neovim
+- Better than vim, again, for all the colors stuff, and more modern.
+### installation instruction
+- Find the latest version of neovim [here](https://github.com/neovim/neovim/releases)
+- Download the **nvim.appimage**
+- Give it the right right, extract and try to run it directly:
+```bash
+sudo chmod u+x nvim.appimage 
+./nvim.appimage --appimage-extract
+./squashfs-root/usr/bin/nvim
+```
+- You should see nvim pop up after the last command above. Hit :version to confirm the version.
+- Make a symlink so that you could run it anywhere
+```bash
+sudo ln -s $PWD/squashfs-root/usr/bin/nvim /usr/bin/nvim
+```
+
+### remark
+
+- You should put the **nvim.appimage** in a nice, easy-to-reach folder, as for the future updates, this file has to be replaced manually (hence the installation process need to be redone)
+- Make sure you don't have a symlink of neovim already created in ~/.local/bin/
 
 ## 1. git
 
@@ -61,30 +101,11 @@ ln -s $PWD/.zshrc $HOME/.zshrc
 - What does it mean "NOTE: the installer will rename an existing .zshrc file to .zshrc.pre-oh-my-zsh."
   When we install ohmyzsh, it actually create a new _.zshrc_ file and replace the current one with _pre-oh-my-zsh_ so that ohmyzsh could be installed
 
-## 3. neovim
+## 3. neovim config
 
-- Better than vim, again, for all the colors stuff, and more modern.
-### installation instruction
-- Find the latest version of neovim [here](https://github.com/neovim/neovim/releases)
-- Download the **nvim.appimage**
-- Give it the right right, extract and try to run it directly:
-```bash
-sudo chmod u+x nvim.appimage 
-./nvim.appimage --appimage-extract
-./squashfs-root/usr/bin/nvim
-```
-- You should see nvim pop up after the last command above. Hit :version to confirm the version.
-- Make a symlink so that you could run it anywhere
-```bash
-sudo ln -s $PWD/squashfs-root/usr/bin/nvim /usr/bin/nvim
-```
+- Custom neovim configuration
 
-### remark
-
-- You should put the **nvim.appimage** in a nice, easy-to-reach folder, as for the future updates, this file has to be replaced manually (hence the installation process need to be redone)
-- Make sure you don't have a symlink of neovim already created in ~/.local/bin/
-
-### nvim config refactory with lua
+### Refactory with lua
 
 - Pretty complicated, and it took a lot of time too, but well worth it.
 - Major change:
