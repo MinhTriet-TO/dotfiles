@@ -13,33 +13,34 @@ end
 -- load vs-code like snippets from plugins (e.g. friendly-snippets)
 require("luasnip/loaders/from_vscode").lazy_load()
 
---   פּ ﯟ   some other good icons
+-- https://github.com/onsails/lspkind.nvim?tab=readme-ov-file#option-1-vanilla-neovim-lsp
+-- in case that your nerdfont fucked up, go to this link and copy paste the icons
 local kind_icons = {
-  Text = "",
-  Method = "m",
-  Function = "",
-  Constructor = "",
-  Field = "",
-  Variable = "",
-  Class = "",
+  Text = "󰉿",
+  Method = "󰆧",
+  Function = "󰊕",
+  Constructor = "",
+  Field = "󰜢",
+  Variable = "󰀫",
+  Class = "󰠱",
   Interface = "",
   Module = "",
-  Property = "",
-  Unit = "",
-  Value = "",
+  Property = "󰜢",
+  Unit = "󰑭",
+  Value = "󰎠",
   Enum = "",
-  Keyword = "",
-  Snippet = "",
-  Color = "",
-  File = "",
-  Reference = "",
-  Folder = "",
+  Keyword = "󰌋",
+  Snippet = "",
+  Color = "󰏘",
+  File = "󰈙",
+  Reference = "󰈇",
+  Folder = "󰉋",
   EnumMember = "",
-  Constant = "",
-  Struct = "",
+  Constant = "󰏿",
+  Struct = "󰙅",
   Event = "",
-  Operator = "",
-  TypeParameter = "",
+  Operator = "󰆕",
+  TypeParameter = "",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 

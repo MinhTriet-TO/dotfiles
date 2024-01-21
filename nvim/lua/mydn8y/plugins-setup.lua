@@ -33,6 +33,8 @@ return packer.startup(function(use)
 
 	use("mhartington/oceanic-next") -- best colorscheme
 
+    use { "catppuccin/nvim", as = "catppuccin" }
+
     use("numToStr/Comment.nvim")
 
 	-- autoclosing

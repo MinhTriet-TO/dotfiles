@@ -62,19 +62,20 @@ ln -s $PWD/.gitconfig $HOME/.gitconfig
 
 - Follow [this link](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH#install-and-set-up-zsh-as-default) to install zsh and setup zsh as the default shell.
 
+### nerdfont
+- [Click here](https://www.nerdfonts.com/font-downloads) and pick the font you like
+- Create a folder to put it nice and easy, then populate it
+```bash
+mkdir ~/.local/share/fonts
+unzip FiraCode.zip -d ~/.local/share/fonts/
+fc-cache ~/.local/share/fonts
+```
+- Find the 'Preferences' menu of your terminal. Choose the nerdfont that's just been installed 
+- Sometimes Nerdfonts could end up fully bugged. You have to fix it by browsing existing repos/codes to search for the icons and copy/paste it back it will work
 ### ohmyzsh
 
 - Imagine FL Studio. The built-in plugins are great but they are null :) The idea here is similar: ohmyzsh add color theme and stuff to configure zsh more fancily.
 - Follow [this link](https://github.com/ohmyzsh/ohmyzsh/wiki#welcome-to-oh-my-zsh) to iinstall ohmyzsh. Then head over the next chapter to get an overview of all the plugins provided and themes.
-
-#### tmux
-
-- Many terminals in one terminal and more.
-- Make a symlink:
-
-```bash
-ln -s $PWD/.tmux.conf $HOME/.tmux.conf
-```
 
 ### powerlevel10k
 
@@ -101,9 +102,26 @@ ln -s $PWD/.zshrc $HOME/.zshrc
 - What does it mean "NOTE: the installer will rename an existing .zshrc file to .zshrc.pre-oh-my-zsh."
   When we install ohmyzsh, it actually create a new _.zshrc_ file and replace the current one with _pre-oh-my-zsh_ so that ohmyzsh could be installed
 
+#### tmux
+
+- Many terminals in one terminal and more.
+- Before populating the _.tmux.conf_ file, there's a couple of thing that you need to install first:
+  - Change the shape of your cursor to something light and easy to watch, rather than a big fat default block.
+  - Change the theme of your terminal to a color that looks nice and harmonized with your powerlevel10k config, as well as the upcoming nvim config.
+```bash
+# tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+- When everthing is set up, make a symlink:
+
+```bash
+ln -s $PWD/.tmux.conf $HOME/.tmux.conf
+```
+
 ## 3. neovim config
 
 - Custom neovim configuration
+- Note: You need to install the C compiler and NodeJS package manager a.k.a gcc & npm first
 
 ### Refactory with lua
 
@@ -116,6 +134,12 @@ ln -s $PWD/.zshrc $HOME/.zshrc
 
 ```bash
 ln -s $PWD/nvim $HOME/.config/nvim/
+```
+
+### Remarks
+For a fresh machine, you need some libraries/tools that need to be installed in order to make nvim worked properly
+```bash
+sudo apt-get install ripgrep fd-find make gcc
 ```
 
 ## Credits

@@ -90,12 +90,12 @@ local function button(sc, txt, keybind, keybind_opts)
 end
 
 dashboard.section.buttons.val = {
-	button("f", "  File", ":Telescope find_files <CR>"),
-	button("n", "  New", ":ene <BAR> startinsert <CR>"),
-	button("r", "  Recent", ":Telescope oldfiles <CR>"),
-	button("s", "  Text", ":Telescope live_grep <CR>"),
+	button("f", "  File", ":Telescope find_files <CR>"),
+	button("n", "  New", ":ene <BAR> startinsert <CR>"),
+	button("r", "󰦖  Recent", ":Telescope oldfiles <CR>"),
+	button("s", "  Text", ":Telescope live_grep <CR>"),
 	button("c", "  Config", ":e ~/.config/nvim/init.lua<CR>"),
-	button("q", "  Quit", ":qa<CR>"),
+	button("q", "  Quit", ":qa<CR>"),
 }
 
 alpha.setup(dashboard.opts)

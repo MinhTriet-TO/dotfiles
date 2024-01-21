@@ -14,11 +14,10 @@ bufferline.setup {
     -- and so changing this is NOT recommended, this is intended
     -- as an escape hatch for people who cannot bear it for whatever reason
     indicator_icon = "▎",
-    buffer_close_icon = "",
+    buffer_close_icon = "",
     -- buffer_close_icon = '',
     modified_icon = "●",
     close_icon = "",
-    -- close_icon = '',
     left_trunc_marker = "",
     right_trunc_marker = "",
     --- name_formatter can be used to change the buffer's label in the bufferline.
@@ -55,7 +54,16 @@ bufferline.setup {
     --     return true
     --   end
     -- end,
-    offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
+    -- let's get rid of the ugly grey bar on top of nvim-tree
+    offsets = {
+        {
+            filetype = "NvimTree",
+            text =  "nvim-󱁕",
+            text_align = "center",
+            separator = true,
+            padding = 0.9
+        }
+    },
     show_buffer_icons = true,
     show_buffer_close_icons = true,
     show_close_icon = true,
@@ -148,7 +156,7 @@ bufferline.setup {
     },
 
     separator = {
-      guifg = { attribute = "bg", highlight = "TabLine" },
+      guifg = { attribute = "bg", highlight = "CocDiagnosticsWarning" },
       guibg = { attribute = "bg", highlight = "TabLine" },
     },
     separator_selected = {
@@ -162,6 +170,10 @@ bufferline.setup {
     indicator_selected = {
       guifg = { attribute = "fg", highlight = "LspDiagnosticsDefaultHint" },
       guibg = { attribute = "bg", highlight = "Normal" },
+    },
+    offset_separator = {
+      guifg = { attribute = "fg", highlight = "DevIconApp" },
+      guibg = { attribute = "bg", highlight = "Define" },
     },
   },
 }
