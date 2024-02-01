@@ -7,7 +7,6 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -76,9 +75,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+#
+# load catppuccin zsh syntax highlight
+source ~/.zsh/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 plugins=(
   git
   zsh-autosuggestions
+  zsh-syntax-highlighting
   )
 
 source $ZSH/oh-my-zsh.sh
@@ -91,11 +94,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -112,24 +115,44 @@ alias myip="curl http://ipecho.net/plain; echo"
 alias python=python3
 alias hf='history -f'
 alias vim=nvim
-alias c=clear
+# remap Ctrl+w which was delete one word backward (we use alt+backspace)
+bindkey '^W' clear-screen
+alias ls="lsd --group-dirs first"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # PYENV configuration
-# export PYENV_ROOT="$HOME/.pyenv"
-# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ $KEYMAP == vicmd ]] || [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ $KEYMAP == main ]] || [[ $KEYMAP == viins ]] || [[ $KEYMAP = '' ]] || [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
-}
-zle -N zle-keymap-select
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
-# Start with beam shape cursor on zsh startup and after every command.
-zle-line-init() { zle-keymap-select 'beam'}
+export PSQL_EDITOR=nvim
+export PACKAGECLOUD_TOKEN=51f450d6782bfa3fb69d62a79d05c88ed686be7256f2029c
+export PACKAGECLOUD_NPM_TOKEN=da74db59526ca18ce45521a27ecac7fb2ec2d98d95b1c0b7
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+export KUBE_EDITOR=nvim
+
+. "$HOME/.asdf/asdf.sh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+aws_configure() {
+    export AWS_PROFILE=$(aws configure list-profiles | grep -v default | grep -v live | sort | fzf)
+    export ENVIRONMENT=$(echo $AWS_PROFILE | cut -d'-' -f3)
+    export AWS_ACCOUNT="$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)"
+    export TF_VAR_environment=$(echo $AWS_PROFILE | cut -d'-' -f3)
+    export TF_VAR_aws_account="$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)"
+    export TF_VAR_environment=$(echo $AWS_PROFILE | cut -d'-' -f3)
+    export TF_VAR_aws_account="$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)"
+    echo "export AWS_PROFILE=$AWS_PROFILE" > ~/.aws/aws_profile
+    echo "export ENVIRONMENT=$(echo $AWS_PROFILE | cut -d'-' -f3)" >> ~/.aws/aws_profile
+    echo "export AWS_ACCOUNT=$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)" >> ~/.aws/aws_profile
+}
+source ~/.aws/aws_profile
+# mise (rtx) activation
+eval "$(~/.local/bin/mise activate zsh)"

@@ -27,15 +27,17 @@ end
 
 return packer.startup(function(use)
 	-- plugins list - color your nvim world here
+	-- replaced by lazy.nvim
 	use("wbthomason/packer.nvim") -- for sure, packer has to manage itself o.o
 
+	-- built-in
 	use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
 	use("mhartington/oceanic-next") -- best colorscheme
 
-    use { "catppuccin/nvim", as = "catppuccin" }
+	use({ "catppuccin/nvim", as = "catppuccin" })
 
-    use("numToStr/Comment.nvim")
+	use("numToStr/Comment.nvim")
 
 	-- autoclosing
 	use("windwp/nvim-autopairs")
@@ -47,8 +49,8 @@ return packer.startup(function(use)
 	-- Ctrl hjkl for moving between vim split
 	use("christoomey/vim-tmux-navigator")
 
-    -- maximize nvim split
-    use("szw/vim-maximizer")
+	-- maximize nvim split
+	use("szw/vim-maximizer")
 
 	-- goodbye to NerdTree and say hello to nvim-tree
 	use("nvim-tree/nvim-tree.lua")
@@ -80,8 +82,8 @@ return packer.startup(function(use)
 	-- autocompletion
 	use("hrsh7th/nvim-cmp") -- completion plugin
 	use("hrsh7th/cmp-buffer") -- buffer completions
-    use("hrsh7th/cmp-path") -- path completions
-    use("hrsh7th/cmp-cmdline") -- cmdline completions
+	use("hrsh7th/cmp-path") -- path completions
+	use("hrsh7th/cmp-cmdline") -- cmdline completions
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 
 	-- snippets
@@ -104,9 +106,8 @@ return packer.startup(function(use)
 	use("neovim/nvim-lspconfig") -- easily configure language servers
 	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
 
-    --dbt integration
-    -- use("PedramNavid/dbtpal")
-    
+	--dbt integration
+	-- use("PedramNavid/dbtpal")
 	-- Automatically set up the configuration after cloning packer.nvim
 	if packer_bootstrap then
 		require("packer").sync()

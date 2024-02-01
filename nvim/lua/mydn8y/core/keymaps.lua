@@ -88,8 +88,6 @@ keymap.set("v", "d", '"_d')
 -- Stay in indent mode
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
--- Nvim-comment related
--- keymap.set("v", "<leader><space>", "gc")
 
 -- Permanently block arrow key to force learning hjkl
 -- keymap.set("", "<up>", "<nop>", { noremap = true })

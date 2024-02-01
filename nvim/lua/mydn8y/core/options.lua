@@ -6,7 +6,7 @@ vim.opt.numberwidth = 2 -- set number column width to 2 {default 4}
 -- things related to tab
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 4 -- insert 2 spaces for a tab
+vim.opt.tabstop = 4 -- insert 4 spaces for a tab
 vim.opt.autoindent = true -- automatically indentation
 vim.opt.showtabline = 2 -- always show tabline
 
@@ -41,3 +41,16 @@ vim.opt.mouse = ""
 
 vim.opt.backup = false
 vim.opt.writebackup = false
+
+-- configure cursor behavior when exit nvim
+-- :h guicursor for more info
+-- (default "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
+vim.cmd[[
+    set guicursor=n-v:block,c-i-ci-ve:ver25-blinkon30,r-cr:hor20,o:hor50
+]]
+vim.cmd[[
+  augroup CustomCursor
+    autocmd!
+    autocmd VimLeave * set guicursor=a:ver10-blinkon30
+  augroup END
+]]
