@@ -128,8 +128,6 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 export PSQL_EDITOR=nvim
-export PACKAGECLOUD_TOKEN=51f450d6782bfa3fb69d62a79d05c88ed686be7256f2029c
-export PACKAGECLOUD_NPM_TOKEN=da74db59526ca18ce45521a27ecac7fb2ec2d98d95b1c0b7
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
