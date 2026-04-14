@@ -1,0 +1,14 @@
+# secrets — real values live in ~/.zsh_secrets, only the .example is tracked
+.zsh_secrets
+*.local
+.env
+.env.*
+
+# credentials that must never be committed
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# macOS
+.DS_Store

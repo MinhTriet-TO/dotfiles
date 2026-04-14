@@ -36,9 +36,3 @@ lspconfig["pyright"].setup({
     capabilities = capabilities,
 	on_attach = on_attach,
 })
-
--- configure pyright server
-lspconfig["tsserver"].setup({
-    capabilities = capabilities,
-	on_attach = on_attach,
-})

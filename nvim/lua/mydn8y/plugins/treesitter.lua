@@ -28,6 +28,8 @@ treesitter.setup({
 		"dockerfile",
 		"gitignore",
 		"make",
+    "json",
+    "terraform",
 	},
 	-- auto install above language parsers
 	auto_install = true,

@@ -6,7 +6,7 @@ require("mydn8y.plugins-setup")
 -- custom config files
 require("mydn8y.plugins.web-devicons")
 -- still testing
--- require("mydn8y.plugins.dbtpal")
+require("mydn8y.plugins.dbtpal")
 require("mydn8y.plugins.autopairs")
 require("mydn8y.plugins.nvim-comment")
 require("mydn8y.plugins.nvim-tree")

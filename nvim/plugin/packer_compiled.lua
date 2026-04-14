@@ -76,147 +76,157 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["Comment.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
   LuaSnip = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/LuaSnip",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
   ["alpha-nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/alpha-nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/alpha-nvim",
     url = "https://github.com/goolord/alpha-nvim"
   },
   ["bufferline.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
     url = "https://github.com/akinsho/bufferline.nvim"
+  },
+  catppuccin = {
+    loaded = true,
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/catppuccin",
+    url = "https://github.com/catppuccin/nvim"
   },
   ["cmp-buffer"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
   },
   ["cmp-cmdline"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["cmp-path"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/cmp-path",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
   cmp_luasnip = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
+  dbtpal = {
+    loaded = true,
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/dbtpal",
+    url = "https://github.com/PedramNavid/dbtpal"
   },
   ["friendly-snippets"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/friendly-snippets",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
     url = "https://github.com/williamboman/mason-lspconfig.nvim"
   },
   ["mason.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/mason.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
   },
   ["nvim-cmp"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
     url = "https://github.com/nvim-tree/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["oceanic-next"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/oceanic-next",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/oceanic-next",
     url = "https://github.com/mhartington/oceanic-next"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["pre-commit.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/pre-commit.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/pre-commit.nvim",
     url = "https://github.com/ttibsi/pre-commit.nvim"
   },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
     url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["vim-bbye"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/vim-bbye",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/vim-bbye",
     url = "https://github.com/moll/vim-bbye"
   },
   ["vim-maximizer"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/vim-maximizer",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/vim-maximizer",
     url = "https://github.com/szw/vim-maximizer"
   },
   ["vim-tmux-navigator"] = {
     loaded = true,
-    path = "/home/mydn8y/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
+    path = "/home/mydn8y/snap/code/176/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
     url = "https://github.com/christoomey/vim-tmux-navigator"
   }
 }

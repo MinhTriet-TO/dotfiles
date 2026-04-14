@@ -36,9 +36,13 @@ keymap.set("n", "<leader>sz", ":MaximizerToggle<CR>") -- quit the current panel
 keymap.set("n", "<M-h>", ":bprevious<CR>")
 keymap.set("n", "<M-l>", ":bnext<CR>")
 keymap.set("n", "<C-n>", ":enew<CR>")
-keymap.set("n", "<C-w>", ":Bdelete<CR>")
+keymap.set("n", "<C-q>", ":Bdelete<CR>")
 keymap.set("n", "<C-M-w>", ":Bdelete!<CR>")
 
+keymap.set("n", "<C-S-h>", "<C-w>h")
+keymap.set("n", "<C-S-j>", "<C-w>j")
+keymap.set("n", "<C-S-k>", "<C-w>k")
+keymap.set("n", "<C-S-l>", "<C-w>l")
 -- quickfix buffer navigation
 keymap.set("n", "<leader>gc", ":ccl<CR>" ) --close it
 keymap.set("n", "<leader>gq", ":cope<CR>" ) --reopen it
@@ -74,7 +78,7 @@ keymap.set("n", "<M-d>", "<C-d>") -- move foward
 
 -- 2. Insert
 -- Press lk instead of escape to go back to normal mode
-keymap.set("i", "lk", "<ESC>")
+-- keymap.set("i", "lk", "<ESC>")
 -- When inside any sort of parentheses, quickly jump out out of it and continue writing
 keymap.set("i", "<M-n>", "<ESC>A")
 

@@ -102,9 +102,8 @@ return packer.startup(function(use)
 	use("neovim/nvim-lspconfig") -- easily configure language servers
 	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
 
-    --dbt integration
-    -- use("PedramNavid/dbtpal")
-    
+	--dbt integration
+	use("PedramNavid/dbtpal")
 	-- Automatically set up the configuration after cloning packer.nvim
 	if packer_bootstrap then
 		require("packer").sync()

@@ -18,7 +18,7 @@ dbt.setup {
     path_to_dbt_project = "",
 
     -- Path to dbt profiles directory
-    path_to_dbt_profiles_dir = "./dbt/profiles.yml",
+    path_to_dbt_profiles_dir = vim.fn.expand "/home/mydn8y/Documents/ma-data/aviv/aviv_platform_dsgp_geocore/geocore",
 
     -- Search for ref/source files in macros and models folders
     extended_path_search = true,
