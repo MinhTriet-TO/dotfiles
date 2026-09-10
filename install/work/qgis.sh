@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # qgis — desktop GIS. install only; the spec asks for nothing beyond that.
 #
-# note the cask installs a versioned app bundle (QGIS.app today, but past
-# releases have shipped as QGIS3.app), so detection checks brew's own records
-# first and only falls back to the bundle name.
+# the cask installs a *versioned* bundle — 4.2.2 lands as
+# "QGIS-final-4_2_2.app" — so the fallback bundle check is a glob. brew's own
+# records are checked first and cover the normal case.
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../lib" && pwd)/common.sh"
 
@@ -11,6 +11,6 @@ require_macos
 ensure_brew
 
 log "qgis"
-install_cask qgis "QGIS.app"
+install_cask qgis "QGIS*.app"
 
 ok "qgis done"

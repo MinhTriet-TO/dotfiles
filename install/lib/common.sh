@@ -69,10 +69,24 @@ ensure_brew() {
 # --- casks -------------------------------------------------------------------
 # an app can be present without brew knowing about it (installed by hand, or
 # pushed by MDM on a work machine), so check both before deciding to install.
+#
+# the app name is treated as a glob, because some casks ship a versioned bundle
+# rather than a bare one — qgis installs as "QGIS-final-4_2_2.app", so a literal
+# "QGIS.app" check never matches and the fallback would be useless.
 cask_present() {
   local token="$1" app="${2:-}"
   brew list --cask "$token" >/dev/null 2>&1 && return 0
-  [ -n "$app" ] && [ -d "/Applications/$app" ] && return 0
+  if [ -n "$app" ]; then
+    local match
+    # empty IFS stops word splitting on app names that contain spaces
+    # ("Cloudflare WARP.app"), while still letting the glob expand. each hit is
+    # then stat'd, because an unmatched pattern with no wildcard is passed
+    # through literally — testing only "did it expand" reports false positives.
+    local IFS=
+    for match in /Applications/$app; do
+      [ -d "$match" ] && return 0
+    done
+  fi
   return 1
 }
 
