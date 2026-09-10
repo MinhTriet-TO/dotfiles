@@ -1,0 +1,27 @@
+# global gitignore, linked to ~/.gitignore (see core.excludesfile in .gitconfig).
+# for junk that should never be committed to *any* repo, so individual projects
+# don't each have to repeat it.
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# editors
+.idea/
+*.swp
+*.swo
+.nvimlog
+
+# python
+uv.lock
+__pycache__/
+*.py[cod]
+.venv/
+.direnv/
+
+# secrets that shouldn't reach a remote by accident
+.env
+.env.local
+*.pem

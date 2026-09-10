@@ -118,6 +118,82 @@ ln -s $PWD/.zshrc $HOME/.zshrc
 ln -s $PWD/nvim $HOME/.config/nvim/
 ```
 
+## 4. automation
+
+- Everything above is the manual way, kept for reference. This chapter is the short version: clone, run one command, get a working machine.
+- A work machine gets the work tools **and** the personal ones. A personal machine only gets the personal ones. The split is detected, not asked.
+
+### 0. github access
+
+- Chicken-and-egg: the rest needs this repo, and this repo needs github access. So this one script is standalone and runs *before* any clone, straight off a raw URL:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/MinhTriet-TO/dotfiles/main/install/bootstrap/github.sh)
+```
+
+- It installs the Xcode command line tools (which is where `git` and `make` come from), creates an ed25519 key, wires up `~/.ssh/config` so the key survives a reboot, and writes the git identity to *~/.gitconfig.local*.
+- It copies the public key to the clipboard and waits: adding it at https://github.com/settings/ssh/new is the one thing that can't be scripted.
+- Already cloned? Same thing as `make github`.
+
+### 1. clone and run
+
+```bash
+git clone git@github.com:MinhTriet-TO/dotfiles.git ~/Documents/personal/dotfiles
+cd ~/Documents/personal/dotfiles
+make run
+```
+
+- `make help` lists everything. `make detect` prints whether this looks like a work or a personal machine.
+- Homebrew is installed automatically if missing.
+
+### 2. verify
+
+```bash
+make verify
+```
+
+- Installed is not the same as working. For now this proves Cloudflare WARP is actually carrying traffic, not merely present.
+
+### targets
+
+| target | what it does |
+| --- | --- |
+| `make github` | step 0 above: ssh access + git identity |
+| `make run` | detect the machine, then install what belongs on it |
+| `make work` | cloudflare, slack, qgis |
+| `make personal` | arc, vscode |
+| `make verify` | check the installed tools actually work |
+| `make detect` | print `work` or `personal` |
+
+- Single tools too: `make work-slack`, `make personal-vscode`, and so on.
+- Every script is idempotent — re-running prints mostly `·` and changes nothing.
+
+### machine detection
+
+- Work laptops are MDM-enrolled, personal ones are not, so that is the signal. No marker file needed on a fresh machine.
+- Override when the guess is wrong:
+
+```bash
+make run MACHINE=personal
+echo personal > ~/.dotfiles-machine   # or pin it permanently
+```
+
+### secrets
+
+- Registry tokens are **not** in this repo. *.zshrc* sources *~/.zsh_secrets* only if it exists, so a machine without it still boots.
+- Copy *.zsh_secrets.example* to *~/.zsh_secrets* and fill it in.
+
+### remark
+
+- Why isn't `make github` part of `make run`?
+  Because it runs before the repo exists, and it's interactive.
+- What is still manual?
+  The symlinks (chapters 1–3 above) and the terminal setup. `make link` will take those over.
+- Slack theme and font aren't in a file, so why is there a *slack/theme.conf*?
+  Slack keeps them in your account, server-side, so they don't follow you to a new machine. That file is what makes them reproducible: the install script puts the theme string on your clipboard, and *Import* on the themes pane takes it back.
+- Arc spaces and bookmarks aren't in the repo either?
+  They live in your Arc account and sync down when you sign in. They also contain every bookmark URL and the session state, which has no business in a public repo.
+
 ## Credits
 
 - My mentor, terminal guru @komalis

@@ -1,0 +1,87 @@
+# dotfiles bootstrap.
+#
+# the whole point: clone this repo on a fresh machine, run `make run`, get a
+# working setup. work machines get work tools *and* personal tools; personal
+# machines get only the personal ones. the split is detected from MDM
+# enrollment (see install/lib/machine.sh) and can be overridden:
+#
+#   make run                  # detect, then install what fits
+#   make run MACHINE=personal # force the personal-only path
+#   make work                 # just the work tools
+#   make verify               # prove the installed tools actually work
+
+SHELL := /bin/bash
+
+# recursively expanded on purpose: only shells out when a target reads it
+MACHINE ?= $(shell bash install/lib/machine.sh)
+
+WORK_TOOLS := cloudflare slack qgis
+PERSONAL_TOOLS := arc vscode
+
+.DEFAULT_GOAL := help
+.PHONY: help run github work personal verify detect \
+	$(addprefix work-,$(WORK_TOOLS)) $(addprefix personal-,$(PERSONAL_TOOLS)) \
+	verify-cloudflare
+
+help:
+	@echo "dotfiles — targets:"
+	@echo ""
+	@echo "  make github       step 0: ssh access to github + git identity"
+	@echo "  make run          install everything this machine should have"
+	@echo "  make work         install work tools ($(WORK_TOOLS))"
+	@echo "  make personal     install personal tools ($(PERSONAL_TOOLS))"
+	@echo "  make verify       check the installed tools actually work"
+	@echo "  make detect       print whether this looks like a work or personal machine"
+	@echo ""
+	@echo "  individual tools: $(addprefix work-,$(WORK_TOOLS)) $(addprefix personal-,$(PERSONAL_TOOLS))"
+	@echo ""
+	@echo "  override detection with MACHINE=work|personal"
+
+detect:
+	@echo "$(MACHINE)"
+
+run:
+	@echo "==> machine detected as: $(MACHINE)"
+	@if [ "$(MACHINE)" = "work" ]; then $(MAKE) --no-print-directory work; fi
+	@$(MAKE) --no-print-directory personal
+
+# cloudflare goes first by design: it gates access to work resources, so the
+# later tools may need the tunnel up. the explicit recipe lines (rather than
+# prerequisites) keep that order even under `make -j`.
+work:
+	@$(MAKE) --no-print-directory work-cloudflare
+	@$(MAKE) --no-print-directory work-slack
+	@$(MAKE) --no-print-directory work-qgis
+	@echo "==> work tools done — run 'make verify' to check them"
+
+# one `work-<tool>` target per tool, generated so adding a tool means editing
+# WORK_TOOLS only. these have to be real explicit rules rather than a `work-%`
+# pattern: make skips implicit-rule search for .PHONY targets, so a pattern
+# rule would silently resolve to "nothing to be done".
+define WORK_TOOL_RULE
+work-$(1):
+	@bash install/work/$(1).sh
+endef
+$(foreach tool,$(WORK_TOOLS),$(eval $(call WORK_TOOL_RULE,$(tool))))
+
+# step 0, kept out of `run` on purpose: it's what you need *before* the repo
+# exists, and it's interactive (pasting a key into github).
+github:
+	@bash install/bootstrap/github.sh
+
+personal:
+	@$(MAKE) --no-print-directory personal-arc
+	@$(MAKE) --no-print-directory personal-vscode
+	@echo "==> personal tools done (terminal setup still pending)"
+
+define PERSONAL_TOOL_RULE
+personal-$(1):
+	@bash install/personal/$(1).sh
+endef
+$(foreach tool,$(PERSONAL_TOOLS),$(eval $(call PERSONAL_TOOL_RULE,$(tool))))
+
+verify:
+	@$(MAKE) --no-print-directory verify-cloudflare
+
+verify-cloudflare:
+	@bash install/verify/cloudflare.sh
