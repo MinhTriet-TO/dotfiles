@@ -51,10 +51,14 @@ link ".p10k.zsh" "$HOME/.p10k.zsh"
 # alongside the other root dotfiles in this repo.
 link ".wezterm.lua" "$HOME/.wezterm.lua"
 
+# --- tmux --------------------------------------------------------------------
+# must be linked before install/terminal/tmux.sh can install plugins: TPM reads
+# the @plugin list out of this file.
+link ".tmux.conf" "$HOME/.tmux.conf"
+
 # --- pending -----------------------------------------------------------------
-# link ".tmux.conf" "$HOME/.tmux.conf"
 # link "nvim"       "$HOME/.config/nvim"
 
 echo
 ok "linked"
-skip "still pending: .tmux.conf, nvim (see the terminal setup work)"
+skip "still pending: nvim (see the terminal setup work)"
