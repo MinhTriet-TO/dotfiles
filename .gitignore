@@ -12,3 +12,6 @@ id_ed25519*
 
 # macOS
 .DS_Store
+
+# other
+uv.lock

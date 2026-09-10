@@ -159,6 +159,7 @@ make verify
 | target | what it does |
 | --- | --- |
 | `make github` | step 0 above: ssh access + git identity |
+| `make link` | symlink configs out of the repo into place |
 | `make run` | detect the machine, then install what belongs on it |
 | `make work` | cloudflare, slack, qgis |
 | `make personal` | arc, vscode |
@@ -188,7 +189,11 @@ echo personal > ~/.dotfiles-machine   # or pin it permanently
 - Why isn't `make github` part of `make run`?
   Because it runs before the repo exists, and it's interactive.
 - What is still manual?
-  The symlinks (chapters 1–3 above) and the terminal setup. `make link` will take those over.
+  The terminal setup. `make link` already owns the git configs (chapter 1); *.zshrc*, *.tmux.conf* and *nvim* (chapters 2–3) join it once that setup exists.
+- Why isn't *.zshrc* linked yet?
+  The repo's version is 175 lines that expect pyenv, nvm, asdf and lsd to be installed. Linking it onto a machine without them breaks the shell on startup, so the tools come first.
+- Where did the git identity go?
+  Not in this repo — the committed *.gitconfig* ends with an `include` of *~/.gitconfig.local*, which `make github` writes. That's what lets one committed *.gitconfig* serve both a work and a personal machine.
 - Slack theme and font aren't in a file, so why is there a *slack/theme.conf*?
   Slack keeps them in your account, server-side, so they don't follow you to a new machine. That file is what makes them reproducible: the install script puts the theme string on your clipboard, and *Import* on the themes pane takes it back.
 - Arc spaces and bookmarks aren't in the repo either?

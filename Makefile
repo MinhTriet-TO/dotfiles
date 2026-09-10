@@ -19,7 +19,7 @@ WORK_TOOLS := cloudflare slack qgis
 PERSONAL_TOOLS := arc vscode
 
 .DEFAULT_GOAL := help
-.PHONY: help run github work personal verify detect \
+.PHONY: help run github link work personal verify detect \
 	$(addprefix work-,$(WORK_TOOLS)) $(addprefix personal-,$(PERSONAL_TOOLS)) \
 	verify-cloudflare
 
@@ -27,6 +27,7 @@ help:
 	@echo "dotfiles — targets:"
 	@echo ""
 	@echo "  make github       step 0: ssh access to github + git identity"
+	@echo "  make link         symlink configs out of the repo into place"
 	@echo "  make run          install everything this machine should have"
 	@echo "  make work         install work tools ($(WORK_TOOLS))"
 	@echo "  make personal     install personal tools ($(PERSONAL_TOOLS))"
@@ -42,8 +43,12 @@ detect:
 
 run:
 	@echo "==> machine detected as: $(MACHINE)"
+	@$(MAKE) --no-print-directory link
 	@if [ "$(MACHINE)" = "work" ]; then $(MAKE) --no-print-directory work; fi
 	@$(MAKE) --no-print-directory personal
+
+link:
+	@bash install/link.sh
 
 # cloudflare goes first by design: it gates access to work resources, so the
 # later tools may need the tunnel up. the explicit recipe lines (rather than
