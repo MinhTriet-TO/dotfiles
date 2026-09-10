@@ -30,11 +30,31 @@ else
   echo "     run 'make github' first; linking now would drop your git identity"
 fi
 
+# --- zsh ---------------------------------------------------------------------
+# .zshrc sources ~/.zsh_secrets, and the real values live in the repo copy
+# (gitignored) so that this link is the only thing putting them in place.
+# seeded by install/terminal/zsh.sh.
+if [ -f "$REPO_ROOT/.zsh_secrets" ]; then
+  link ".zsh_secrets" "$HOME/.zsh_secrets"
+else
+  warn "no .zsh_secrets in the repo yet — run 'make terminal' first"
+fi
+
+link ".zshrc" "$HOME/.zshrc"
+
+# the prompt config, generated once by `p10k configure`. .zshrc sources it only
+# if present, so this link is what carries the prompt to a new machine.
+link ".p10k.zsh" "$HOME/.p10k.zsh"
+
+# --- wezterm -----------------------------------------------------------------
+# wezterm also reads ~/.config/wezterm/wezterm.lua, but ~/.wezterm.lua keeps it
+# alongside the other root dotfiles in this repo.
+link ".wezterm.lua" "$HOME/.wezterm.lua"
+
 # --- pending -----------------------------------------------------------------
-# link ".zshrc"     "$HOME/.zshrc"
 # link ".tmux.conf" "$HOME/.tmux.conf"
 # link "nvim"       "$HOME/.config/nvim"
 
 echo
 ok "linked"
-skip "still pending: .zshrc, .tmux.conf, nvim (see the terminal setup work)"
+skip "still pending: .tmux.conf, nvim (see the terminal setup work)"

@@ -17,11 +17,13 @@ MACHINE ?= $(shell bash install/lib/machine.sh)
 
 WORK_TOOLS := cloudflare slack qgis
 PERSONAL_TOOLS := arc vscode
+# terminal setup, built up one piece at a time: tmux and nvim still to come
+TERMINAL_TOOLS := zsh wezterm
 
 .DEFAULT_GOAL := help
-.PHONY: help run github link work personal verify detect \
+.PHONY: help run github link work personal terminal verify detect \
 	$(addprefix work-,$(WORK_TOOLS)) $(addprefix personal-,$(PERSONAL_TOOLS)) \
-	verify-cloudflare
+	$(addprefix terminal-,$(TERMINAL_TOOLS)) verify-cloudflare
 
 help:
 	@echo "dotfiles — targets:"
@@ -31,6 +33,7 @@ help:
 	@echo "  make run          install everything this machine should have"
 	@echo "  make work         install work tools ($(WORK_TOOLS))"
 	@echo "  make personal     install personal tools ($(PERSONAL_TOOLS))"
+	@echo "  make terminal     install terminal setup ($(TERMINAL_TOOLS))"
 	@echo "  make verify       check the installed tools actually work"
 	@echo "  make detect       print whether this looks like a work or personal machine"
 	@echo ""
@@ -74,10 +77,23 @@ $(foreach tool,$(WORK_TOOLS),$(eval $(call WORK_TOOL_RULE,$(tool))))
 github:
 	@bash install/bootstrap/github.sh
 
+# the terminal setup is part of "personal tools" in the spec, so it runs on
+# both machine kinds — it just lives in its own directory because it's several
+# pieces (zsh now, tmux and nvim next).
 personal:
 	@$(MAKE) --no-print-directory personal-arc
 	@$(MAKE) --no-print-directory personal-vscode
-	@echo "==> personal tools done (terminal setup still pending)"
+	@$(MAKE) --no-print-directory terminal
+
+terminal:
+	@$(MAKE) --no-print-directory terminal-zsh
+	@$(MAKE) --no-print-directory terminal-wezterm
+
+define TERMINAL_TOOL_RULE
+terminal-$(1):
+	@bash install/terminal/$(1).sh
+endef
+$(foreach tool,$(TERMINAL_TOOLS),$(eval $(call TERMINAL_TOOL_RULE,$(tool))))
 
 define PERSONAL_TOOL_RULE
 personal-$(1):

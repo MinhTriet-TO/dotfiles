@@ -162,11 +162,12 @@ make verify
 | `make link` | symlink configs out of the repo into place |
 | `make run` | detect the machine, then install what belongs on it |
 | `make work` | cloudflare, slack, qgis |
-| `make personal` | arc, vscode |
+| `make personal` | arc, vscode, and the terminal setup |
+| `make terminal` | zsh, wezterm |
 | `make verify` | check the installed tools actually work |
 | `make detect` | print `work` or `personal` |
 
-- Single tools too: `make work-slack`, `make personal-vscode`, and so on.
+- Single tools too: `make work-slack`, `make personal-vscode`, `make terminal-zsh`, and so on.
 - Every script is idempotent — re-running prints mostly `·` and changes nothing.
 
 ### machine detection
@@ -182,16 +183,21 @@ echo personal > ~/.dotfiles-machine   # or pin it permanently
 ### secrets
 
 - Registry tokens are **not** in this repo. *.zshrc* sources *~/.zsh_secrets* only if it exists, so a machine without it still boots.
-- Copy *.zsh_secrets.example* to *~/.zsh_secrets* and fill it in.
+- `make terminal` seeds *.zsh_secrets* in the repo from *.zsh_secrets.example*, and `make link` symlinks it to *~/.zsh_secrets*. The file is gitignored, so the values stay local while the repo stays the one place configs live.
+- Fill it in once per machine: the three registry tokens and `SLACK_USERID`.
 
 ### remark
 
 - Why isn't `make github` part of `make run`?
   Because it runs before the repo exists, and it's interactive.
 - What is still manual?
-  The terminal setup. `make link` already owns the git configs (chapter 1); *.zshrc*, *.tmux.conf* and *nvim* (chapters 2–3) join it once that setup exists.
-- Why isn't *.zshrc* linked yet?
-  The repo's version is 175 lines that expect pyenv, nvm, asdf and lsd to be installed. Linking it onto a machine without them breaks the shell on startup, so the tools come first.
+  tmux and nvim. `make link` already owns the git configs, *.zshrc*, *.p10k.zsh* and *.wezterm.lua*; *.tmux.conf* and *nvim* join it once those are set up.
+- Why is *~/.p10k.zsh* in the repo when a wizard generates it?
+  Because the link points the other way: *~/.p10k.zsh* **is** the repo file, so re-running `p10k configure` rewrites the committed copy. The prompt stays version controlled without copying anything back.
+- Which runtime manager?
+  mise, for everything. asdf and nvm are deliberately not installed, and *.zshrc* no longer references nvm.
+- Why does *.wezterm.lua* have no key bindings?
+  tmux owns splits, windows and navigation. Binding them in wezterm too would put two layers on the same muscle memory.
 - Where did the git identity go?
   Not in this repo — the committed *.gitconfig* ends with an `include` of *~/.gitconfig.local*, which `make github` writes. That's what lets one committed *.gitconfig* serve both a work and a personal machine.
 - Slack theme and font aren't in a file, so why is there a *slack/theme.conf*?

@@ -88,6 +88,44 @@ install_cask() {
   ok "$token installed"
 }
 
+# --- formulae ----------------------------------------------------------------
+# second arg is an optional binary name: some tools get installed outside brew
+# (uv's own installer drops it in ~/.local/bin), and reinstalling over that
+# would leave two copies fighting over PATH.
+install_formula() {
+  local formula="$1" bin="${2:-}"
+  if brew list --formula "$formula" >/dev/null 2>&1; then
+    skip "$formula already installed"
+    return
+  fi
+  if [ -n "$bin" ] && command -v "$bin" >/dev/null 2>&1; then
+    skip "$bin already on PATH outside brew, leaving it"
+    return
+  fi
+  log "installing $formula"
+  brew install "$formula"
+  ok "$formula installed"
+}
+
+# --- git clones --------------------------------------------------------------
+# for things that install by being cloned into place (oh-my-zsh themes and
+# plugins). shallow, since we never need their history.
+clone_once() {
+  local repo="$1" dest="$2" name="${3:-$(basename "$dest")}"
+  if [ -d "$dest/.git" ]; then
+    skip "$name already cloned"
+    return
+  fi
+  if [ -e "$dest" ]; then
+    warn "$dest exists but is not a git clone — leaving it alone"
+    return
+  fi
+  log "cloning $name"
+  mkdir -p "$(dirname "$dest")"
+  git clone --depth=1 "$repo" "$dest" >/dev/null 2>&1 || die "could not clone $name"
+  ok "$name cloned"
+}
+
 # --- symlinks ----------------------------------------------------------------
 # the repo is the source of truth: every config lives here and is linked into
 # place, so editing the live file edits the repo.

@@ -110,7 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias myip="curl http://ipecho.net/plain; echo"
 alias python=python3
-alias hf='history -f'
 
 alias hf='history -f | awk '\''{printf "\n\033[1;34m%s) \033[1;32m%s \033[38;5;214m%s\n\033[0m", $1, $2, $3; for (i=4; i<=NF; i++) printf "%s ", $i; print ""}'\'''
 
@@ -121,20 +120,9 @@ alias ls="lsd --group-dirs first --oneline"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# PYENV configuration
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
 export PSQL_EDITOR=nvim
 
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-export KUBE_EDITOR=nvim
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# nvm removed — mise manages node (and everything else) now.
 
 # Function to interactively choose AWS account and export env var
 aws_configure() {
@@ -149,27 +137,21 @@ aws_configure() {
     echo "export ENVIRONMENT=$(echo $AWS_PROFILE | cut -d'-' -f3)" >> ~/.aws/aws_profile
     echo "export AWS_ACCOUNT=$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)" >> ~/.aws/aws_profile
 }
-# Read the file to export AWS env var
-source ~/.aws/aws_profile
+# Read the file to export AWS env var. Guarded because aws_configure is what
+# creates it — on a fresh machine it doesn't exist yet, and an unguarded source
+# makes every new shell open with an error.
+[ -f ~/.aws/aws_profile ] && source ~/.aws/aws_profile
 
-pgpassify() {
-  awk 'NR==2' | jq -r '.uri' | sed -E 's|postgresql\+asyncpg://([^:]+):([^@]+)@([^:]+):([^/]+)/([^:]+)|\3:\4:\5:\5:\2|' >> ~/.pgpass
-}
 
-psql+() {
-  export DB_URI=$(cat ~/.pgpass | grep -v '^#' | grep -v '^[[:space:]]*$' | awk -F':' '{print $1}' | fzf)
-  if [[ -n "$DB_URI" ]]; then
-    pgcli -h $DB_URI -p 6543 -d geo -U geo
-  else
-    echo "No db selected."
-  fi
-}
 # machine-local secrets (registry tokens, credentials) — never committed
 # copy .zsh_secrets.example to ~/.zsh_secrets and fill it in
 [ -f ~/.zsh_secrets ] && source ~/.zsh_secrets
 
+export SKIP_ASDF_INSTALL=1
+# SLACK_USERID moved to ~/.zsh_secrets — it identifies an account, and it
+# differs between a work and a personal machine.
+
+
 export MANPAGER='nvim +Man!'
 
-# asdf configuration
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
+eval "$(mise activate zsh)"
