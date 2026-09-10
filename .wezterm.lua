@@ -18,13 +18,37 @@ local config = wezterm.config_builder()
 -- glyph into one cell, which is what makes p10k's powerline separators and
 -- icons look pinched.
 config.font = wezterm.font 'MesloLGS Nerd Font'
-config.font_size = 13.0
+-- 13 was too small to read comfortably. vscode is on its default 14, so this
+-- sits a touch above it — nudge here rather than with cmd+/cmd-, which only
+-- lasts for the session and would drift from the committed config.
+config.font_size = 15.0
 
 -- colours --------------------------------------------------------------------
 -- catppuccin mocha, to match the vscode theme and the slack sidebar. built into
 -- wezterm, so there's no palette to paste or keep in sync. base is #1E1E2E,
 -- the same value as the slack "system navigation" colour.
 config.color_scheme = 'Catppuccin Mocha'
+
+-- cursor ---------------------------------------------------------------------
+-- blinking beam. this is the terminal-level counterpart to the tmux line:
+--   set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
+-- which teaches tmux how to set and reset the cursor shape.
+--
+-- this one setting is also what restores the cursor after quitting nvim.
+-- measured with a pty capture: nvim's last write is always a reset — ESC[0 q
+-- on its own, or ESC[ q via tmux's Se — so the terminal default is the only
+-- thing that decides the final shape. an autocmd inside nvim can't win,
+-- because the reset comes after it. hence: set it here, once.
+config.default_cursor_style = 'BlinkingBar'
+
+-- blink speed. the default 800ms felt sluggish; 400 is a normal terminal blink.
+config.cursor_blink_rate = 400
+
+-- and this is the setting that actually makes it feel snappy: by default
+-- wezterm *fades* the cursor in and out with easing, which reads as slow even
+-- at a short rate. 'Constant' gives a hard on/off blink instead.
+config.cursor_blink_ease_in = 'Constant'
+config.cursor_blink_ease_out = 'Constant'
 
 -- chrome ---------------------------------------------------------------------
 -- no tab bar: tmux already draws a status line and window list, and two rows
