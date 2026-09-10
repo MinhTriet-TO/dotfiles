@@ -56,9 +56,11 @@ link ".wezterm.lua" "$HOME/.wezterm.lua"
 # the @plugin list out of this file.
 link ".tmux.conf" "$HOME/.tmux.conf"
 
-# --- pending -----------------------------------------------------------------
-# link "nvim"       "$HOME/.config/nvim"
+# --- nvim --------------------------------------------------------------------
+# must be linked before install/terminal/nvim.sh can sync plugins: lazy.nvim
+# reads the specs from here. note the target is ~/.config/nvim exactly, not
+# ~/.config/nvim/ — a trailing slash would nest it as ~/.config/nvim/nvim.
+link "nvim" "$HOME/.config/nvim"
 
 echo
-ok "linked"
-skip "still pending: nvim (see the terminal setup work)"
+ok "all configs linked"

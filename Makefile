@@ -17,8 +17,8 @@ MACHINE ?= $(shell bash install/lib/machine.sh)
 
 WORK_TOOLS := cloudflare slack qgis
 PERSONAL_TOOLS := arc vscode
-# terminal setup, built up one piece at a time: nvim still to come
-TERMINAL_TOOLS := zsh wezterm tmux
+# terminal setup: zsh, wezterm, tmux, nvim
+TERMINAL_TOOLS := zsh wezterm tmux nvim
 
 .DEFAULT_GOAL := help
 .PHONY: help run github link work personal terminal verify detect \
@@ -79,7 +79,7 @@ github:
 
 # the terminal setup is part of "personal tools" in the spec, so it runs on
 # both machine kinds — it just lives in its own directory because it's several
-# pieces (zsh now, tmux and nvim next).
+# pieces: zsh, wezterm, tmux, nvim.
 personal:
 	@$(MAKE) --no-print-directory personal-arc
 	@$(MAKE) --no-print-directory personal-vscode
@@ -89,6 +89,7 @@ terminal:
 	@$(MAKE) --no-print-directory terminal-zsh
 	@$(MAKE) --no-print-directory terminal-wezterm
 	@$(MAKE) --no-print-directory terminal-tmux
+	@$(MAKE) --no-print-directory terminal-nvim
 
 define TERMINAL_TOOL_RULE
 terminal-$(1):
