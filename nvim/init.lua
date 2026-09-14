@@ -1,22 +1,17 @@
--- base config files
-require("mydn8y.core.options")
-require("mydn8y.core.keymaps")
-require("mydn8y.core.colorscheme")
-require("mydn8y.plugins-setup")
--- custom config files
-require("mydn8y.plugins.web-devicons")
--- still testing
--- require("mydn8y.plugins.dbtpal")
-require("mydn8y.plugins.autopairs")
-require("mydn8y.plugins.nvim-comment")
-require("mydn8y.plugins.nvim-tree")
-require("mydn8y.plugins.lualine")
-require("mydn8y.plugins.bufferline")
-require("mydn8y.plugins.telescope")
-require("mydn8y.plugins.treesitter")
-require("mydn8y.plugins.nvim-cmp")
-require("mydn8y.plugins.gitsigns")
-require("mydn8y.plugins.alpha")
--- lsp focus
-require("mydn8y.plugins.lsp.mason")
-require("mydn8y.plugins.lsp.lspconfig")
+-- =============================================================================
+-- Entry point
+-- Leader must be set before lazy.nvim loads
+-- =============================================================================
+vim.g.mapleader      = ","
+vim.g.maplocalleader = ","
+
+-- Disable netrw (nvim-tree)
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Core
+require("core.options")
+require("core.keymaps")
+
+-- Bootstrap lazy.nvim + load plugins
+require("core.lazy")

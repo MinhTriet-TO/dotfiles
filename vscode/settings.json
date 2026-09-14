@@ -1,0 +1,73 @@
+{
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "editor.minimap.enabled": false,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "editor.defaultColorDecorators": "auto",
+  "terminal.integrated.fontFamily": "MesloLGS Nerd Font",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "window.restoreFullscreen": true,
+  "window.newWindowDimensions": "fullscreen",
+  "editor.renderWhitespace": "all",
+  "workbench.activityBar.location": "top",
+  "security.workspace.trust.untrustedFiles": "newWindow",
+  "editor.fontFamily": "MesloLGS Nerd Font",
+  "editor.fontLigatures": true,
+  "workbench.editorAssociations": {
+    "*.msgpack": "default"
+  },
+  "editor.wordWrap": "on",
+  "files.exclude": {
+    "**/.ruff_cache": true
+  },
+  "githubPullRequests.pullBranch": "never",
+  "terminal.integrated.env.osx": {
+    "PATH": "/opt/homebrew/bin:/opt/homebrew/sbin:${env:PATH}"
+  },
+  "terminal.integrated.profiles.osx": {
+    "tmux": {
+      "path": "/opt/homebrew/bin/tmux",
+      "args": ["new-session", "-A", "-s", "vscode:${workspaceFolder}"]
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "notebook.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "notebook.formatOnSave.enabled": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorStyleInactive": "line",
+  "terminal.integrated.cursorBlinking": true,
+  "betterGitLineBlame.showStatusBarItem": true,
+  "githubPullRequests.pushBranch": "always",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "window.customTitleBarVisibility": "windowed",
+  "explorer.confirmDelete": false,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "files.autoSave": "afterDelay",
+  "eslint.format.enable": true,
+  "sqltools.highlightQuery": false,
+  "[qml]": {
+    "editor.defaultFormatter": "Delgan.qml-format"
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "sql": false
+  },
+  "dbcode.resultLocation": "below",
+  "aws.cloudformation.telemetry.enabled": false,
+  "claudeCode.preferredLocation": "panel",
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "chat.viewSessions.orientation": "stacked",
+  "chat.commandCenter.enabled": false,
+  "explorer.confirmDragAndDrop": false,
+  "diffEditor.ignoreTrimWhitespace": true
+}

@@ -5,8 +5,18 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Homebrew. Its installer only writes this to .zprofile, which a .zshrc linked
+# from the dotfiles repo can't count on — without it, mise/lsd/nvim aren't on
+# PATH on a fresh machine. Guarded, so it's a no-op where brew isn't installed.
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+# Standalone-installed tools land here: uv, uvx, poetry, claude.
+# Losing this line silently removes all of them from PATH.
+export PATH="$HOME/.local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -67,8 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
+HIST_STAMPS="%d/%m/%Y %H:%m"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
@@ -111,13 +120,48 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias myip="curl http://ipecho.net/plain; echo"
 alias python=python3
-alias hf='history -f'
+
+alias hf='history -f | awk '\''{printf "\n\033[1;34m%s) \033[1;32m%s \033[38;5;214m%s\n\033[0m", $1, $2, $3; for (i=4; i<=NF; i++) printf "%s ", $i; print ""}'\'''
+
 alias vim=nvim
+# remap Ctrl+w which was delete one word backward (we use alt+backspace)
+alias ls="lsd --group-dirs first --oneline"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# PYENV configuration
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+export PSQL_EDITOR=nvim
+
+# nvm removed — mise manages node (and everything else) now.
+
+# Function to interactively choose AWS account and export env var
+aws_configure() {
+    export AWS_PROFILE=$(aws configure list-profiles | grep -v default | sort | fzf)
+    export ENVIRONMENT=$(echo $AWS_PROFILE | cut -d'-' -f3)
+    export AWS_ACCOUNT="$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)"
+    export TF_VAR_environment=$(echo $AWS_PROFILE | cut -d'-' -f3)
+    export TF_VAR_aws_account="$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)"
+    export TF_VAR_environment=$(echo $AWS_PROFILE | cut -d'-' -f3)
+    export TF_VAR_aws_account="$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)"
+    echo "export AWS_PROFILE=$AWS_PROFILE" > ~/.aws/aws_profile
+    echo "export ENVIRONMENT=$(echo $AWS_PROFILE | cut -d'-' -f3)" >> ~/.aws/aws_profile
+    echo "export AWS_ACCOUNT=$(echo $AWS_PROFILE | cut -d'-' -f1)-$(echo $AWS_PROFILE | cut -d'-' -f2)" >> ~/.aws/aws_profile
+}
+# Read the file to export AWS env var. Guarded because aws_configure is what
+# creates it — on a fresh machine it doesn't exist yet, and an unguarded source
+# makes every new shell open with an error.
+[ -f ~/.aws/aws_profile ] && source ~/.aws/aws_profile
+
+
+# machine-local secrets (registry tokens, credentials) — never committed
+# copy .zsh_secrets.example to ~/.zsh_secrets and fill it in
+[ -f ~/.zsh_secrets ] && source ~/.zsh_secrets
+
+export SKIP_ASDF_INSTALL=1
+# SLACK_USERID moved to ~/.zsh_secrets — it identifies an account, and it
+# differs between a work and a personal machine.
+
+
+export MANPAGER='nvim +Man!'
+
+eval "$(mise activate zsh)"

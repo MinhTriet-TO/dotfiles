@@ -1,16 +1,14 @@
 [core]
     ignorecase = false
-    #change to the current global .gitignore file
-    excludesfile = /home/mydn8y/.gitignore
+    # global ignore, linked from git/gitignore.global. was an absolute linux
+    # path (/home/mydn8y/...), which silently did nothing on macOS.
+    excludesfile = ~/.gitignore
 
 [color]
     ui = true
 
 [push]
     default = current
-
-;[commit]
-    ;gpgsign = true
 
 [rebase]
     autosquash = true
@@ -28,10 +26,6 @@
     d = diff -w
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 
-[user]
-    email = YOUR_EMAIL
-    name = YOUR_NAME
-
 [gpg]
     program = gpg
 [diff]
@@ -42,3 +36,10 @@
 	prompt = false
 [rerere]
 	enabled = true
+
+# identity lives here instead of above, because the email differs between work
+# and personal machines and the signing key is per-keyring — so it can't be
+# committed. written by install/bootstrap/github.sh. the trailing include wins
+# over anything set earlier in this file.
+[include]
+    path = ~/.gitconfig.local
