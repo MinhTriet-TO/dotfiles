@@ -146,13 +146,60 @@ make run
 - `make help` lists everything. `make detect` prints whether this looks like a work or a personal machine.
 - Homebrew is installed automatically if missing.
 
-### 2. verify
+### 2. checkhealth
+
+```bash
+make checkhealth
+```
+
+- Installed is not the same as wired up. This audits the machine as it stands right now: symlinks, git identity, secrets, shell, wezterm, tmux, nvim, and the apps. Roughly 40 checks across 8 sections.
+- It checks that *~/.zshrc* is still a **symlink into the repo**, not merely that a file exists there — a real file at that path is exactly what drift looks like, and it says so.
+- Machine-aware: the work-tools section only runs when the machine detects as `work`.
+- Everything keeps running after a failure, so one pass gives the whole picture. Exits non-zero if anything failed, so it can gate a script; warnings alone still exit 0.
+- A few checks exist because the failures they catch are otherwise **silent**: whether *.zshrc* builds its own `PATH` from a bare environment, and whether telescope's fuzzy matcher actually compiled.
 
 ```bash
 make verify
 ```
 
-- Installed is not the same as working. For now this proves Cloudflare WARP is actually carrying traffic, not merely present.
+- The deep functional probe that `checkhealth` delegates to: proves Cloudflare WARP is really carrying traffic, not merely installed.
+
+### a brand new personal mac
+
+- The whole thing, start to finish. Future me: this is the runbook.
+- A fresh Mac has no `git` and no `make`, so nothing here works until the command line tools are in:
+
+```bash
+xcode-select --install
+```
+
+- Then github access. This runs *before* the clone — that's the point of it being standalone:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/MinhTriet-TO/dotfiles/main/install/bootstrap/github.sh)
+```
+
+- It prompts for a name and email. **Type the personal email, not the work one** — there's no existing config to carry over on a fresh machine. Skip the prompt with `GIT_EMAIL=you@personal.com` in front of the command. It then copies the SSH key to the clipboard and waits while you paste it at https://github.com/settings/ssh/new — the one manual step in the whole flow.
+
+```bash
+git clone git@github.com:MinhTriet-TO/dotfiles.git ~/Documents/personal/dotfiles
+cd ~/Documents/personal/dotfiles
+make run
+```
+
+```bash
+make checkhealth
+```
+
+#### what differs from a work machine
+
+- **The work tools are skipped automatically.** No MDM enrollment means `make detect` says `personal`, so no WARP, Slack or QGIS — just arc, vscode and the terminal setup. Nothing to pass; `MACHINE=personal` only exists for when the guess is wrong.
+- **Commit signing won't carry over**, because the GPG key isn't in that machine's keyring. It's omitted rather than set to true and failing on every commit. Set it up separately if wanted.
+- **`SLACK_USERID` can stay blank** — it's work-only. `make checkhealth` will show it as one warning, which does not fail the run.
+- **No `p10k configure` needed.** *.p10k.zsh* is committed, so the prompt arrives already configured.
+
+#### untested
+This has never been run start to finish on a genuinely fresh machine — only piecemeal on a machine where most things already existed. The paths with no mileage on them are Homebrew installing itself, oh-my-zsh installing from scratch, and `ssh-keygen`. Try it in a VM first — see the *test it* note.
 
 ### targets
 
@@ -163,8 +210,9 @@ make verify
 | `make run` | detect the machine, then install what belongs on it |
 | `make work` | cloudflare, slack, qgis |
 | `make personal` | arc, vscode, and the terminal setup |
-| `make terminal` | zsh, wezterm |
-| `make verify` | check the installed tools actually work |
+| `make terminal` | zsh, wezterm, tmux, nvim |
+| `make checkhealth` | audit everything: links, tools, plugins, configs |
+| `make verify` | deep functional check (cloudflare carrying traffic) |
 | `make detect` | print `work` or `personal` |
 
 - Single tools too: `make work-slack`, `make personal-vscode`, `make terminal-zsh`, and so on.
@@ -182,9 +230,10 @@ echo personal > ~/.dotfiles-machine   # or pin it permanently
 
 ### secrets
 
-- Registry tokens are **not** in this repo. *.zshrc* sources *~/.zsh_secrets* only if it exists, so a machine without it still boots.
+- Machine-local values are **not** in this repo. *.zshrc* sources *~/.zsh_secrets* only if it exists, so a machine without it still boots.
 - `make terminal` seeds *.zsh_secrets* in the repo from *.zsh_secrets.example*, and `make link` symlinks it to *~/.zsh_secrets*. The file is gitignored, so the values stay local while the repo stays the one place configs live.
-- Fill it in once per machine: the three registry tokens and `SLACK_USERID`.
+- Only `SLACK_USERID` lives there now. The packagecloud and nexus registry tokens that used to be in *.zshrc* were rotated and are no longer used, so they were dropped.
+- `make checkhealth` reports how many values are still blank, without ever printing them.
 
 ### remark
 

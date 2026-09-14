@@ -21,7 +21,7 @@ PERSONAL_TOOLS := arc vscode
 TERMINAL_TOOLS := zsh wezterm tmux nvim
 
 .DEFAULT_GOAL := help
-.PHONY: help run github link work personal terminal verify detect \
+.PHONY: help run github link work personal terminal verify checkhealth detect \
 	$(addprefix work-,$(WORK_TOOLS)) $(addprefix personal-,$(PERSONAL_TOOLS)) \
 	$(addprefix terminal-,$(TERMINAL_TOOLS)) verify-cloudflare
 
@@ -34,7 +34,8 @@ help:
 	@echo "  make work         install work tools ($(WORK_TOOLS))"
 	@echo "  make personal     install personal tools ($(PERSONAL_TOOLS))"
 	@echo "  make terminal     install terminal setup ($(TERMINAL_TOOLS))"
-	@echo "  make verify       check the installed tools actually work"
+	@echo "  make checkhealth  audit everything: links, tools, plugins, configs"
+	@echo "  make verify       deep functional check of installed tools (cloudflare)"
 	@echo "  make detect       print whether this looks like a work or personal machine"
 	@echo ""
 	@echo "  individual tools: $(addprefix work-,$(WORK_TOOLS)) $(addprefix personal-,$(PERSONAL_TOOLS))"
@@ -102,6 +103,11 @@ personal-$(1):
 	@bash install/personal/$(1).sh
 endef
 $(foreach tool,$(PERSONAL_TOOLS),$(eval $(call PERSONAL_TOOL_RULE,$(tool))))
+
+# the broad audit: is this machine wired up correctly *right now*.
+# `verify` stays the deep functional probe that this delegates to.
+checkhealth:
+	@bash install/checkhealth.sh
 
 verify:
 	@$(MAKE) --no-print-directory verify-cloudflare
